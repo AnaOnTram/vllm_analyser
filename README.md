@@ -12,6 +12,6 @@ python log_analysis.py #start analyzing
 ```
 
 # Model inference engine support
--[x] vllm
--[ ] sglang
--[ ] llama.cpp
+- [x] vllm
+- [ ] sglang
+- [ ] llama.cpp
