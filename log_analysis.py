@@ -22,16 +22,20 @@ try:
                 sp2 = components[sp1+1:].index('throughput:')
                 prefill_speed = float(''.join(components[sp1 + 1:sp1 + 2]))
                 decode_speed = float(''.join(components[sp1+sp2+2:sp1+sp2+3]))
-                prefill.append(prefill_speed)
-                decode.append(decode_speed)
+                if prefill_speed != 0:
+                    prefill.append(prefill_speed)
+                if decode_speed != 0:
+                    decode.append(decode_speed)
             if '[metrics.py:101]' in components:
                 #print(components)
                 sp3 = components.index('Drafted')
                 sp4 = components.index('Avg')
                 draft_throughput = float(''.join(components[sp3+2:sp3+3]))
                 avg_accept = float(''.join(components[sp4+4:sp4+5])[:4])
-                drafts.append(draft_throughput)
-                acceptance.append(avg_accept)
+                if draft_throughput != 0:
+                    drafts.append(draft_throughput)
+                if avg_accept != 0:
+                    acceptance.append(avg_accept)
     
     plt.plot(range(len(prefill)), prefill, color='green')
     plt.ylabel('Prefill Speed')
@@ -43,7 +47,13 @@ try:
     plt.ylabel('decode speed')
     plt.title(f'{model_name} Decode Performance')
     plt.show()
-    
+
+    plt.plot(range(len(prefill)), prefill, color='green', label='Prefill')
+    plt.plot(range(len(decode)), decode, color='red', label='Decode')
+    plt.title(f'{model_name} Inference Performance')
+    plt.legend()
+    plt.savefig(f'{model_name}_perf.png', dpi=300)
+    plt.show()
     
     if len(acceptance) > 2:
         plt.plot(range(len(acceptance)), acceptance, color='blue')
