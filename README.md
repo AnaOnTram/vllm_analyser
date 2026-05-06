@@ -8,7 +8,9 @@ cd vllm_analyser
 ```
 Copy your vllm log and save it a txt file. 
 ```
-python log_analysis.py #start analyzing
+python log_analysis.py #for vllm
+#or
+python engine.py #for vllm & sglang
 ```
 
 ## Sample Outputs
@@ -27,5 +29,5 @@ You may consider decrease "num_speculative_tokens" value to increase decode perf
 
 ## Model inference engine support
 - [x] vllm
-- [ ] sglang
+- [x] sglang
 - [ ] llama.cpp
