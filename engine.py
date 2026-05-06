@@ -1,14 +1,19 @@
 from matplotlib import pyplot as plt
-import csv, statistics, numpy as np
+import argparse, csv, statistics, numpy as np
+
+parser = argparse.ArgumentParser(prog='engine.py')
+parser.add_argument('-f', '--file', type=str, help="Path to the log file",)
+parser.add_argument('-e', '--engine', type=int, choices=[0,1,2], help="0 for vllm, 1 for sglang, 2 for llama.cpp",)
+args = parser.parse_args()
 
 prefill = list()
 decode = list()
 drafts = list()
 acceptance = list()
 engine = ['vllm', 'sglang', 'llama.cpp']
-
-target = input('Please input your log file name (e.g. log.txt): ')
-inference_select = int(input('Please choose your inference engine (0 for vllm, 1 for sglang, 2 for llama.cpp): '))
+    
+target = args.file
+inference_select = args.engine
 
 if inference_select in range(len(engine)):
     print(f'Inference Engine Selected: {engine[inference_select]}')
